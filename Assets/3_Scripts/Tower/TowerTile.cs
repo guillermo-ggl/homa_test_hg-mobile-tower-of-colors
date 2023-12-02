@@ -154,6 +154,13 @@ public class TowerTile : MonoBehaviour
             ParticleSystem.MainModule main = fx.main;
             main.startColor = TileColorManager.Instance.GetColor(ColorIndex);
         }
-        Destroy(gameObject);
+        Deactivate();
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+        connectedTiles.Clear();
+        OnTileDestroyed = null;
     }
 }

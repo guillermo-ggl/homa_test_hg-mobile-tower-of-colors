@@ -24,6 +24,16 @@ public class Tower : MonoBehaviour
 
     public System.Action<TowerTile> OnTileDestroyedCallback;
 
+
+    private void Awake()
+    {
+        TowerTilePool.Instance.EnsureQuantity(TilePrefab, 40);
+        foreach (TowerTile tile in SpecialTilePrefabs)
+        {
+            TowerTilePool.Instance.EnsureQuantity(tile, 3);
+        }
+    }
+
     private void Start()
     {
         if (BuildOnStart) {
@@ -48,7 +58,7 @@ public class Tower : MonoBehaviour
             for (int i = 0; i < TileCountPerFloor; i++) {
                 Quaternion direction = Quaternion.AngleAxis(angleStep * i, Vector3.up) * floorRotation;
                 Vector3 position = transform.position + Vector3.up * y * TileHeight + direction * Vector3.forward * towerRadius;
-                TowerTile tileInstance = Instantiate(Random.value > SpecialTileChance ? TilePrefab : SpecialTilePrefabs[Random.Range(0, SpecialTilePrefabs.Length)], position, direction * TilePrefab.transform.rotation, transform);
+                TowerTile tileInstance = TowerTilePool.Instance.GetPooled(Random.value > SpecialTileChance ? TilePrefab : SpecialTilePrefabs[Random.Range(0, SpecialTilePrefabs.Length)], position, direction * TilePrefab.transform.rotation);
                 tileInstance.SetColorIndex(Mathf.FloorToInt(Random.value * TileColorManager.Instance.ColorCount));
                 tileInstance.SetFreezed(true);
                 tileInstance.Floor = y;
@@ -91,9 +101,9 @@ public class Tower : MonoBehaviour
         if (tilesByFloor != null) {
             foreach (List<TowerTile> tileList in tilesByFloor) {
                 foreach (TowerTile tile in tileList) {
-                    if (Application.isPlaying)
-                        Destroy(tile.gameObject);
-                    else
+                    if (Application.isPlaying && tile != null && tile.gameObject!=null)
+                        tile.Deactivate();
+                    else if(tile != null && tile.gameObject != null)
                         DestroyImmediate(tile.gameObject);
                 }
                 tileList.Clear();
@@ -132,6 +142,11 @@ public class Tower : MonoBehaviour
                     tile.SetFreezed(!value);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        ResetTower();
     }
 
 }
