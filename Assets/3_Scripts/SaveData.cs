@@ -42,4 +42,28 @@ public static class SaveData
             PlayerPrefs.SetInt("VibrationEnabled", value);
         }
     }
+
+    public static int SoftCoin
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("SoftCoin", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("SoftCoin", value);
+        }
+    }
+
+    public static int HardCoin
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("HardCoin", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("HardCoin", value);
+        }
+    }
 }

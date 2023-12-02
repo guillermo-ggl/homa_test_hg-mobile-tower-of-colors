@@ -53,6 +53,7 @@ public class TowerTile : MonoBehaviour
                 nextCheckTime = Time.time + raycastCheckInterval;
                 if (!Physics.Raycast(rigidbody.worldCenterOfMass, Vector3.down, rigidbody.worldCenterOfMass.y + 1, 1 << 9)) {
                     Active = false;
+                    GameManager.Instance.missionSystem.ReportData(Mission.DataType.SunkTile, 1);
                     OnTileDestroyed?.Invoke(this);
                 }
             }
@@ -137,6 +138,7 @@ public class TowerTile : MonoBehaviour
     {
         if (Active) {
             Active = false;
+            GameManager.Instance.missionSystem.ReportData(Mission.DataType.TileExploded, 1);
             StartCoroutine(ChainExplodeRoutine(instant));
         }
     }

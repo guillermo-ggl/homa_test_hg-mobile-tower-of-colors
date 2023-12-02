@@ -43,6 +43,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     ParticleSystem tileExplosionFx;
 
+    [SerializeField]
+    public MissionSystem missionSystem;
+
     Animator animator;
 
     float minPercent = 0;
@@ -80,6 +83,11 @@ public class GameManager : Singleton<GameManager>
         percentCounter.SetValue(SaveData.PreviousHighscore);
         percentCounter.SetShadowValue(SaveData.PreviousHighscore);
         percentCounter.SetValueSmooth(0f);
+
+        if (missionSystem.CheckResetMissions())
+        {
+            missionSystem.ResetMissions();
+        }
     }
 
     void OnBallShot()
@@ -106,6 +114,7 @@ public class GameManager : Singleton<GameManager>
         if (gameState == GameState.Playing || gameState == GameState.WaitingLose) {
             comboUI.CountCombo(tile.transform.position);
             destroyedTileCount++;
+            missionSystem.ReportData(Mission.DataType.TileEliminated, 1);
             float p = (float)destroyedTileCount / tileCount;
             percentCounter.SetValueSmooth(p / minPercent);
             if (p >= minPercent) {
