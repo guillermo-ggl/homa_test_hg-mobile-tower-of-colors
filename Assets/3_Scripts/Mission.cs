@@ -21,6 +21,9 @@ public abstract class Mission : ScriptableObject
 
     public DataType GetDataType() { return dataType; }
 
+    public int GetGoal() { return goal; }
+
+
     public enum DataType
     {
         LevelCompleted,

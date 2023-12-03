@@ -6,26 +6,17 @@ using static Reward_Coin;
 [CreateAssetMenu(menuName = "Coin Reward")]
 public class Reward_Coin : Reward
 {
-    [SerializeField]
-    CoinType coinType;
-
     public override void Claim()
     {
-        switch (coinType)
+        switch (type)
         {
-            case CoinType.SoftCoin:
+            case Type.SoftCoin:
                 SaveData.SoftCoin += quantity;
                 break;
-            case CoinType.HardCoin:
+            case Type.HardCoin:
                 SaveData.HardCoin += quantity;
                 break;
         }
         base.Claim();
-    }
-
-    public enum CoinType
-    {
-        SoftCoin,
-        HardCoin
     }
 }

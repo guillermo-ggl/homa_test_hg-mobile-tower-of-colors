@@ -102,13 +102,16 @@ public class MissionSystem : ScriptableObject
 
     public void ReportData(Mission.DataType dataType, int quantity)
     {
-        for (int i = 0;i < ActiveEasyMissions + ActiveMediumMissions + ActiveHardMissions; i++)
+        if (RemoteConfig.MISSIONS_ENABLED)
         {
-            Mission mission = GetMission(i);
-            if (mission.GetDataType() == dataType)
+            for (int i = 0; i < GetTotalMissions(); i++)
             {
-                int result = mission.ReportQuantity(GetSelectedMissionProgress(i), quantity);
-                SetSelectedMissionProgress(i, result);
+                Mission mission = GetMission(i);
+                if (mission.GetDataType() == dataType)
+                {
+                    int result = mission.ReportQuantity(GetSelectedMissionProgress(i), quantity);
+                    SetSelectedMissionProgress(i, result);
+                }
             }
         }
     }
@@ -116,14 +119,19 @@ public class MissionSystem : ScriptableObject
     public void ClaimMissionReward(int index)
     {
         GetReward(index).Claim();
-        SetSelectedMissionRewardClaimed(index, false);
+        SetSelectedMissionRewardClaimed(index, true);
+
+        if (CheckResetMissions())
+        {
+            ResetMissions();
+        }
     }
 
     public bool CheckResetMissions()
     {
         bool reset = false;
         bool allClaimed = true;
-        for(int i = 0; !reset && i < ActiveEasyMissions + ActiveMediumMissions + ActiveHardMissions; i++)
+        for(int i = 0; !reset && i < GetTotalMissions(); i++)
         {
             if (GetSelectedMissionIndex(i) < 0)
             {
@@ -197,5 +205,10 @@ public class MissionSystem : ScriptableObject
         {
             return HardRewards;
         }
+    }
+
+    public int GetTotalMissions()
+    {
+        return ActiveEasyMissions + ActiveMediumMissions + ActiveHardMissions;
     }
 }

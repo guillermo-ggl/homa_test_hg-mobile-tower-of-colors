@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66e13247b1c43645ac0007552a31844, type: 3}
   m_Name: Reward_Coin_Hard_5
   m_EditorClassIdentifier: 
+  type: 1
   quantity: 5
-  coinType: 1

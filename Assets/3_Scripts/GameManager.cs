@@ -44,6 +44,8 @@ public class GameManager : Singleton<GameManager>
     ParticleSystem tileExplosionFx;
 
     [SerializeField]
+    public GameObject missionsPanelRemoteToggler;
+    [SerializeField]
     public MissionSystem missionSystem;
 
     Animator animator;
@@ -84,7 +86,8 @@ public class GameManager : Singleton<GameManager>
         percentCounter.SetShadowValue(SaveData.PreviousHighscore);
         percentCounter.SetValueSmooth(0f);
 
-        if (missionSystem.CheckResetMissions())
+        missionsPanelRemoteToggler.SetActive(RemoteConfig.MISSIONS_ENABLED);
+        if (RemoteConfig.MISSIONS_ENABLED && missionSystem.CheckResetMissions())
         {
             missionSystem.ResetMissions();
         }
@@ -125,6 +128,7 @@ public class GameManager : Singleton<GameManager>
                 SetGameState(GameState.Win);
                 if (SaveData.VibrationEnabled == 1)
                     Handheld.Vibrate();
+                missionSystem.ReportData(Mission.DataType.LevelCompleted, SaveData.CurrentLevel);
             }
         }
     }

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c66e13247b1c43645ac0007552a31844, type: 3}
-  m_Name: Reward_Coin_Hard_1
+  m_Script: {fileID: 11500000, guid: a2a9008f74f69334da0500874820c50b, type: 3}
+  m_Name: Mission_Conditioned_Do30Combo_3
   m_EditorClassIdentifier: 
-  type: 1
-  quantity: 1
+  dataType: 1
+  goal: 3
+  condition: 30

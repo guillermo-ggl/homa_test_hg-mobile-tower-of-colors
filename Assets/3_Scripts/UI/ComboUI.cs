@@ -81,6 +81,7 @@ public class ComboUI : MonoBehaviour
             ShowEncouragement();
         showingCombo = false;
         comboAnimation.SetBool("show", false);
+        GameManager.Instance.missionSystem.ReportData(Mission.DataType.Combo, currentCombo);
         currentCombo = 0;
         resetComboRoutine = null;
     }
