@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: e56e102e7c4e6364cb35ef048ea8b1ae, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5b17af609693e5043909a39af2562f45, type: 3}
+  - {fileID: 21300000, guid: fa52d343a509f8f41840224179add3c8, type: 3}
+  - {fileID: 21300000, guid: fc9461647ccfcb74599894fa38cae5e0, type: 3}
+  - {fileID: 21300000, guid: 40ee5035ca44d29499587ae873ccf91f, type: 3}
+  - {fileID: 21300000, guid: 805c952828626d6429228839b8197da2, type: 3}
+  - {fileID: 21300000, guid: 05e44a581cfa284409e2f4fbd475360a, type: 3}
+  - {fileID: 21300000, guid: 775a072a295874c46abe81644c892ba9, type: 3}
+  - {fileID: 21300000, guid: 22edda0b26d441949a93bc8384c38a40, type: 3}
+  - {fileID: 7482667652216324306, guid: 086da94ba31f86f4d8ed46740c55362c, type: 3}
+  - {fileID: 21300000, guid: ce59c0fb95280884bb5755db6b9ac64c, type: 3}
+  - {fileID: 21300000, guid: 3db1cd9c099ac0141969487ca105dbe0, type: 3}
+  - {fileID: 21300000, guid: 1881d50d27ba1e84280ec37f3675c0af, type: 3}
+  - {fileID: 21300000, guid: 8eff7f7ddab8e044495d9ef57d8e388c, type: 3}
+  - {fileID: 21300000, guid: 61ecdded871dc5c4b9de3ce27684988f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - slider-border
+  - check-icon
+  - eye-open
+  - slider-handle
+  - smartphone-vibration
+  - softcoin
+  - quest-icon
+  - hardcoin
+  - Square
+  - eye-close
+  - settings
+  - smartphone
+  - slider-fill
+  - fill-circle
+  m_RenderDataMap: {}
+  m_Tag: UIAtlas
+  m_IsVariant: 0
