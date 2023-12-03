@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class MissionsUI : MonoBehaviour
+public class MissionsUI : Singleton<MissionsUI>
 {
     [SerializeField]
     GameManager gameManager;
@@ -12,6 +14,9 @@ public class MissionsUI : MonoBehaviour
 
     [SerializeField]
     Animator animator;
+
+    [SerializeField]
+    TextMeshProUGUI softCoinsText, hardCoinsText;
 
     bool isOpen = false;
     void Awake()
@@ -24,6 +29,8 @@ public class MissionsUI : MonoBehaviour
         {
             missionPanelUIs[i].PrepareForMission(i, gameManager.missionSystem, RefreshPanels);
         }
+
+        RefreshCoins();
     }
 
     public void Toggle()
@@ -43,5 +50,11 @@ public class MissionsUI : MonoBehaviour
         {
             missionPanelUIs[i].Refresh();
         }
+    }
+
+    public void RefreshCoins()
+    {
+        softCoinsText.text = SaveData.SoftCoin.ToString();
+        hardCoinsText.text = SaveData.HardCoin.ToString();
     }
 }

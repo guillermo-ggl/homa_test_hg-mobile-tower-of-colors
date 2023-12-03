@@ -17,6 +17,8 @@ public class Reward_Coin : Reward
                 SaveData.HardCoin += quantity;
                 break;
         }
+
+        MissionsUI.Instance.RefreshCoins();
         base.Claim();
     }
 }
