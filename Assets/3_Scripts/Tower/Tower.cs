@@ -59,6 +59,7 @@ public class Tower : MonoBehaviour
                 Quaternion direction = Quaternion.AngleAxis(angleStep * i, Vector3.up) * floorRotation;
                 Vector3 position = transform.position + Vector3.up * y * TileHeight + direction * Vector3.forward * towerRadius;
                 TowerTile tileInstance = TowerTilePool.Instance.GetPooled(Random.value > SpecialTileChance ? TilePrefab : SpecialTilePrefabs[Random.Range(0, SpecialTilePrefabs.Length)], position, direction * TilePrefab.transform.rotation);
+                tileInstance.Used = true;
                 tileInstance.SetColorIndex(Mathf.FloorToInt(Random.value * TileColorManager.Instance.ColorCount));
                 tileInstance.SetFreezed(true);
                 tileInstance.Floor = y;
@@ -83,7 +84,7 @@ public class Tower : MonoBehaviour
             float maxHeight = 0;
             foreach (List<TowerTile> floor in tilesByFloor) {
                 foreach (TowerTile t in floor) {
-                    if (t != null)
+                    if (t != null && t.Used)
                         maxHeight = Mathf.Max(t.transform.position.y, maxHeight);
                 }
             }
@@ -101,9 +102,12 @@ public class Tower : MonoBehaviour
         if (tilesByFloor != null) {
             foreach (List<TowerTile> tileList in tilesByFloor) {
                 foreach (TowerTile tile in tileList) {
-                    if (Application.isPlaying && tile != null && tile.gameObject!=null)
+                    if (Application.isPlaying && tile != null && tile.gameObject != null)
+                    {
                         tile.Deactivate();
-                    else if(tile != null && tile.gameObject != null)
+                        tile.gameObject.SetActive(false);
+                    }
+                    else if (tile != null && tile.gameObject != null)
                         DestroyImmediate(tile.gameObject);
                 }
                 tileList.Clear();

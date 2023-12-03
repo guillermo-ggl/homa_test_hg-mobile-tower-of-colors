@@ -32,16 +32,22 @@ public class TowerTile : MonoBehaviour
     private bool drifting;
     private bool initialized;
     private bool freezed;
+    public bool Used { get; set; }
 
     protected virtual void Awake()
     {
         TileColorManager.Instance.OnColorListChanged += ResetColor;
     }
 
-    protected virtual void OnDestroy()
+    private void Shake()
     {
         if (CameraShakeManager.Instance)
             CameraShakeManager.Instance.Play(0);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        Shake();
         if (TileColorManager.Instance)
             TileColorManager.Instance.OnColorListChanged -= ResetColor;
     }
@@ -55,6 +61,7 @@ public class TowerTile : MonoBehaviour
                     Active = false;
                     GameManager.Instance.missionSystem.ReportData(Mission.DataType.SunkTile, 1);
                     OnTileDestroyed?.Invoke(this);
+                    Deactivate();
                 }
             }
         } else if (!freezed) {
@@ -156,13 +163,16 @@ public class TowerTile : MonoBehaviour
             ParticleSystem.MainModule main = fx.main;
             main.startColor = TileColorManager.Instance.GetColor(ColorIndex);
         }
+        Shake();
         Deactivate();
+        gameObject.SetActive(false);
     }
 
     public void Deactivate()
     {
-        gameObject.SetActive(false);
+        Used = false;
         connectedTiles.Clear();
         OnTileDestroyed = null;
+        drifting = false;
     }
 }
